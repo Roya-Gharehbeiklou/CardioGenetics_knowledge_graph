@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NextGen Knowledge Graph Explorer</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .graph-container {
+            height: calc(100vh - 64px);
+        }
+        .sidebar {
+            width: 300px;
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+    <!-- Navigation Bar -->
+    <nav class="bg-blue-600 text-white shadow-lg">
+        <div class="container mx-auto px-6 py-3 flex justify-between items-center">
+            <div class="flex items-center">
+                <i class="fas fa-dna text-2xl mr-3"></i>
+                <h1 class="text-xl font-bold">NextGen Explorer</h1>
+            </div>
+            <div class="flex items-center space-x-4">
+                <button class="px-4 py-2 bg-blue-500 hover:bg-blue-700 rounded-lg">
+                    <i class="fas fa-download mr-2"></i>Export
+                </button>
+                <button class="px-4 py-2 bg-blue-500 hover:bg-blue-700 rounded-lg">
+                    <i class="fas fa-cog mr-2"></i>Settings
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="flex h-screen bg-gray-100">
+        <!-- Left Sidebar -->
+        <div class="sidebar bg-white shadow-lg p-4 overflow-y-auto">
+            <div class="mb-6">
+                <h2 class="text-lg font-semibold mb-3">Search</h2>
+                <div class="relative">
+                    <input type="text" 
+                           placeholder="Search genes, diseases..." 
+                           class="w-full px-4 py-2 border rounded-lg">
+                    <i class="fas fa-search absolute right-3 top-3 text-gray-400"></i>
+                </div>
+            </div>
+
+            <!-- Filters -->
+            <div class="mb-6">
+                <h2 class="text-lg font-semibold mb-3">Filters</h2>
+                <div class="space-y-2">
+                    <label class="flex items-center">
+                        <input type="checkbox" class="form-checkbox text-blue-600">
+                        <span class="ml-2">Genes</span>
+                    </label>
+                    <label class="flex items-center">
+                        <input type="checkbox" class="form-checkbox text-red-600">
+                        <span class="ml-2">Diseases</span>
+                    </label>
+                    <label class="flex items-center">
+                        <input type="checkbox" class="form-checkbox text-green-600">
+                        <span class="ml-2">Pathways</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Analysis Tools -->
+            <div class="mb-6">
+                <h2 class="text-lg font-semibold mb-3">Analysis Tools</h2>
+                <div class="space-y-2">
+                    <button class="w-full px-4 py-2 text-left hover:bg-gray-100 rounded-lg">
+                        <i class="fas fa-project-diagram mr-2"></i>
+                        Centrality Analysis
+                    </button>
+                    <button class="w-full px-4 py-2 text-left hover:bg-gray-100 rounded-lg">
+                        <i class="fas fa-sitemap mr-2"></i>
+                        Cluster Detection
+                    </button>
+                    <button class="w-full px-4 py-2 text-left hover:bg-gray-100 rounded-lg">
+                        <i class="fas fa-link mr-2"></i>
+                        Path Finding
+                    </button>
+                </div>
+            </div>
+
+            <!-- Statistics -->
+            <div class="mb-6">
+                <h2 class="text-lg font-semibold mb-3">Statistics</h2>
+                <div class="bg-gray-50 p-3 rounded-lg">
+                    <div class="mb-2">
+                        <span class="font-medium">Total Nodes:</span>
+                        <span id="total-nodes" class="ml-2">0</span>
+                    </div>
+                    <div class="mb-2">
+                        <span class="font-medium">Total Edges:</span>
+                        <span id="total-edges" class="ml-2">0</span>
+                    </div>
+                    <div>
+                        <span class="font-medium">Clusters:</span>
+                        <span id="total-clusters" class="ml-2">0</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Graph View -->
+        <div class="flex-1 p-4">
+            <div class="bg-white rounded-lg shadow-lg h-full">
+                <!-- Graph Visualization Container -->
+                <div id="graph-container" class="w-full h-full"></div>
+            </div>
+        </div>
+
+        <!-- Right Info Panel (Initially Hidden) -->
+        <div id="info-panel" class="sidebar bg-white shadow-lg p-4 hidden">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-lg font-semibold">Node Details</h2>
+                <button id="close-info" class="text-gray-500 hover:text-gray-700">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div id="node-details" class="space-y-4">
+                <!-- Node details will be populated dynamically -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div id="loading-overlay" class="fixed inset-0 bg-black bg-opacity-50 hidden flex items-center justify-center">
+        <div class="bg-white p-6 rounded-lg shadow-lg text-center">
+            <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
+            <p class="mt-4">Loading graph data...</p>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/vis-network.min.js"></script>
+    <script>
+        // Initialize graph visualization
+        document.addEventListener('DOMContentLoaded', function() {
+            // Graph initialization code will go here
+            const container = document.getElementById('graph-container');
+            
+            // Example data structure
+            const data = {
+                nodes: new vis.DataSet([
+                    { id: 1, label: 'Gene1', group: 'gene' },
+                    { id: 2, label: 'Disease1', group: 'disease' },
+                    // Add more nodes as needed
+                ]),
+                edges: new vis.DataSet([
+                    { from: 1, to: 2 }
+                    // Add more edges as needed
+                ])
+            };
+
+            // Network configuration
+            const options = {
+                nodes: {
+                    shape: 'dot',
+                    size: 16
+                },
+                physics: {
+                    forceAtlas2Based: {
+                        gravitationalConstant: -26,
+                        centralGravity: 0.005,
+                        springLength: 230,
+                        springConstant: 0.18
+                    },
+                    maxVelocity: 146,
+                    solver: 'forceAtlas2Based',
+                    timestep: 0.35,
+                    stabilization: { iterations: 150 }
+                }
+            };
+
+            // Create network
+            const network = new vis.Network(container, data, options);
+
+            // Event handlers
+            network.on('click', function(params) {
+                if (params.nodes.length > 0) {
+                    // Show node details in info panel
+                    document.getElementById('info-panel').classList.remove('hidden');
+                }
+            });
+        });
+
+        // Close info panel
+        document.getElementById('close-info').addEventListener('click', function() {
+            document.getElementById('info-panel').classList.add('hidden');
+        });
+    </script>
+</body>
+</html>
