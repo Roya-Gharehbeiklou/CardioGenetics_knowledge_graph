@@ -4,10 +4,6 @@
 
 Imagine a smart tool that helps researchers connect the dots between genes and heart diseases. The NextGen Knowledge Graph Explorer does just that! It maps out relationships between medical data, making it easier to uncover new insights and potential treatments.
 
-## The Big Picture
-
-NextGen is a global collaboration of top researchers and experts from Europe and the U.S. Our mission? To better understand heart diseases that impact millions of people worldwide. 
-
 ## How It Works
 
 ### The Knowledge Graph Explained
