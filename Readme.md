@@ -1,10 +1,7 @@
 # Knowledge Graph Explorer
 
-## What's This All About?
-
 Imagine a smart tool that helps researchers connect the dots between genes and heart diseases. It maps out relationships between medical data, making it easier to uncover new insights and potential treatments.
 
-## How It Works
 
 ### The Knowledge Graph Explained
 
@@ -20,24 +17,16 @@ By following these connections, researchers can discover new insights into heart
 We pull information from top medical databases:
 
 1. **GWAS Catalog**
-   - **What it is:** A collection of genome-wide association studies (GWAS) that identify genetic variants linked to diseases.
-   - **Why we use it:** It helps us understand which genes are associated with heart diseases.
-
+   - A collection of genome-wide association studies (GWAS) that identify genetic variants linked to diseases.
 2. **WikiPathways**
-   - **What it is:** A database of biological pathways curated by the scientific community.
-   - **Why we use it:** It provides insight into how genes interact within biological processes relevant to heart health.
-
+   - A database of biological pathways curated by the scientific community.
 3. **Open Targets Platform**
-   - **What it is:** A research platform that connects genetic data with disease associations and drug targets.
-   - **Why we use it:** It helps identify potential treatments and therapeutic targets for cardiovascular diseases.
-
+   - A research platform that connects genetic data with disease associations and drug targets.
 4. **Bgee Database**
-   - **What it is:** A curated database of gene expression in various tissues and conditions.
-   - **Why we use it:** It helps researchers understand which genes are active in heart tissues and how they contribute to disease progression.
-
+   - A curated database of gene expression in various tissues and conditions.
 ## Fetching Cardiovascular-Related Data
 
-To extract relevant cardiovascular data from these sources, we:
+To extract relevant cardiovascular data from these sources:
 - **Filter GWAS Catalog** for heart disease-related genetic associations.
 - **Use WikiPathways** to identify pathways linked to heart function and disease.
 - **Query Open Targets** to find genes with known drug interactions for heart disease treatment.
@@ -115,14 +104,13 @@ def fetch_bgee_cardio():
         return response.json()["expressions"]
     return None
 ```
-*Explanation:* This function queries Bgee for genes expressed in heart tissues, helping researchers understand gene activity in cardiovascular conditions.
+*Explanations:* This function queries Bgee for genes expressed in heart tissues, helping researchers understand gene activity in cardiovascular conditions.
 
 ## Key Features
 
 1. **Interactive Map**
    - See the full network of connections.
    - Zoom in for more detail.
-   - Filter information to focus on what matters most.
 
 2. **Smart Analysis**
    - Identify key genes linked to heart disease.
@@ -135,10 +123,9 @@ def fetch_bgee_cardio():
    - Save and share your findings.
 
 4. **Graph Analysis**
-   - Finds important connections using smart algorithms.
-   - Predicts new links that could reveal hidden relationships.
-   - Suggests existing drugs that might work for new conditions.
+   - Finds important connections.
+   - Predicts new links that can reveal hidden relationships.
 
 ## License
 
-This project is open source and available under the MIT License.
+MIT
