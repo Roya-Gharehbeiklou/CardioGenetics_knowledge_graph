@@ -3,14 +3,14 @@
 Imagine a smart tool that helps researchers connect the dots between genes and heart diseases. It maps out relationships between medical data, making it easier to uncover new insights and potential treatments.
 
 
-### The Knowledge Graph Explained
+### The Knowledge Graph: 
 
 Think of this tool as a big web of connections:
 
 - **Nodes** are key players like genes, diseases, and medications.
 - **Edges** are the links between them, showing how they're related.
 
-By following these connections, researchers can discover new insights into heart disease.
+By following these connections, we can discover new insights into heart disease.
 
 ### Our Data Sources
 
@@ -48,7 +48,6 @@ def fetch_gwas_cardio_data():
         return pd.DataFrame(data["_embedded"]["studies"])
     return None
 ```
-*Explanation:* This function sends a request to the GWAS API, filtering results for cardiovascular traits. The data is extracted and formatted into a DataFrame.
 
 ### Extracting Pathways from WikiPathways
 ```python
@@ -62,7 +61,6 @@ def fetch_wikipathways_cardio():
         return response.json()["pathways"]
     return None
 ```
-*Explanation:* This function queries WikiPathways for cardiovascular-related pathways and extracts the relevant pathway details.
 
 ### Querying Open Targets for Cardiovascular Disease Data
 ```python
@@ -90,7 +88,6 @@ def fetch_open_targets_cardio():
         return response.json()["data"]["disease"]["associatedTargets"]["rows"]
     return None
 ```
-*Explanation:* This function uses GraphQL to fetch genes associated with cardiovascular disease from Open Targets. **EFO_0000319** corresponds to "cardiovascular disease" in the Experimental Factor Ontology (EFO), ensuring that we retrieve relevant gene-disease associations. If a more specific condition is needed (e.g., coronary artery disease or arrhythmia), a different EFO term can be used.
 
 ### Retrieving Gene Expression Data from Bgee
 ```python
@@ -104,7 +101,6 @@ def fetch_bgee_cardio():
         return response.json()["expressions"]
     return None
 ```
-*Explanations:* This function queries Bgee for genes expressed in heart tissues, helping researchers understand gene activity in cardiovascular conditions.
 
 ## Key Features
 
