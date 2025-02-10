@@ -1,6 +1,6 @@
 # Knowledge Graph Explorer
 
-Imagine a smart tool that helps researchers connect the dots between genes and heart diseases (https://rdcu.be/d9eY7). It maps out relationships between medical data, making it easier to uncover new insights and potential treatments.
+Imagine a smart tool that helps researchers connect the dots between genes and heart diseases. It maps out relationships between medical data, making it easier to uncover new insights and potential treatments.
 
 ### The Knowledge Graph: 
 
@@ -9,7 +9,7 @@ Think of this tool as a big web of connections:
 - **Nodes** are key players like genes, diseases, and medications.
 - **Edges** are the links between them, showing how they're related.
 
-By following these connections, we can discover new insights into heart disease.
+By following these connections, we can discover new insights into heart disease (https://rdcu.be/d9eY7).
 
 ### Our Data Sources
 
