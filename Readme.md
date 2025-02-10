@@ -1,7 +1,6 @@
 # Knowledge Graph Explorer
 
-Imagine a smart tool that helps researchers connect the dots between genes and heart diseases. It maps out relationships between medical data, making it easier to uncover new insights and potential treatments.
-
+Imagine a smart tool as mentioned (https://rdcu.be/d9eY7) that helps researchers connect the dots between genes and heart diseases. It maps out relationships between medical data, making it easier to uncover new insights and potential treatments.
 
 ### The Knowledge Graph: 
 
